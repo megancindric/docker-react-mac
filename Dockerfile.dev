@@ -1,0 +1,14 @@
+#Specify base image
+FROM node:lts-alpine
+
+#Set up working directory
+WORKDIR /app
+
+#Install starting dependencies
+COPY package.json/ ./
+RUN npm Install
+#Copy in necessary files
+COPY ./ ./
+
+#Default command
+CMD ["npm", "start"]
