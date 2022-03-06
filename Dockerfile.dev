@@ -6,7 +6,8 @@ WORKDIR /app
 
 #Install starting dependencies
 COPY package.json/ ./
-RUN npm Install
+RUN npm install
+RUN npm install react-scripts@4.0.3
 #Copy in necessary files
 COPY ./ ./
 
