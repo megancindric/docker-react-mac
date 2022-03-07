@@ -5,24 +5,23 @@ version: '3.9'
 services:
 
   #Define the service
-  simple-webapp:
-    container_name: docker-react-mac
+  docker-react-dev:
+    container_name: docker-react-dev
   #Declare build file & context to use
     build:
       context: .
       dockerfile: Dockerfile.dev
   #Mount project directory & node modules directory
     volumes:
-    - ./:/app
+    - .:/app
     - /app/node_modules
     #Map the ports
     ports:
-      - "3000:3000"
+      - "3001:3000"
   test:
-    container_name: docker-react-mac-test
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
+    container_name: docker-react-test
+    #Building based on above image (project name+container name)
+    image: docker-react-mac_docker-react-dev
     volumes:
     - '.:/app'
     - '/app/node_modules'
