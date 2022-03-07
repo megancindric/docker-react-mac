@@ -1,9 +1,7 @@
 #Specify version
 version: '3.9'
-
 #Declare the services
 services:
-
   #Define the service
   docker-react-dev:
     container_name: docker-react-dev

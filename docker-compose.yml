@@ -10,9 +10,9 @@ services:
       context: .
       dockerfile: Dockerfile
   #Mount project directory & node modules directory
-    # volumes:
-    # - /app/node_modules
-    # - ./:/app
+    volumes:
+    - /app/node_modules
+    - ./:/app
     #Map the ports
     ports:
       - "8080:80"
