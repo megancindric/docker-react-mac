@@ -1,7 +1,7 @@
 .dockerignore
 
 Dockerfile
-Docekrfile.dev
+Dockerfile.dev
 docker-compose-dev.yml
 docker-compose.yml
 
