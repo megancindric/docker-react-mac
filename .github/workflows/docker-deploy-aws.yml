@@ -1,7 +1,7 @@
 name: Deploy Docker-Compose to AWS
 
 env:
-  APP_NAME: dockerreactmac
+  APP_NAME: dockerreactappmac
   AWS_REGION: us-east-1
   AWS_PLATFORM: Docker
   PIPELINE_ID: $GITHUB_RUN_ID-$GITHUB_RUN_NUMBER
