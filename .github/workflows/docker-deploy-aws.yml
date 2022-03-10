@@ -1,0 +1,46 @@
+name: Deploy Docker-Compose to AWS
+
+env:
+  APP_NAME: docker-react-mac
+  AWS_REGION: us-east-1
+  AWS_PLATFORM: Docker
+  PIPELINE_ID: $GITHUB_RUN_ID-$GITHUB_RUN_NUMBER
+  DATE_STAMP: $(date +%s)
+
+on:
+  # push:
+  #   branches: [main]
+  # pull_request:
+  #   branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy_aws:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: AWS credentials configuration and version label
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Version label
+        run: |
+          echo "aws_version_label=${{ env.APP_NAME }}-${{ env.PIPELINE_ID }}" >> $GITHUB_ENV
+          echo "date-stamp=${{ env.DATE_STAMP }}" >> $GITHUB_ENV
+
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: ${{ env.APP_NAME }}
+          environment_name: dockerreactappmac-env
+          version_label: ${{ env.aws_version_label }}
+          region: ${{ env.AWS_REGION }}
+          deployment_package: docker-compose.yml
