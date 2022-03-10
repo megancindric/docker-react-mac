@@ -3,8 +3,8 @@ version: '3.9'
 #Declare the service
 services:
   #Define the service
-  docker-react-prod:
-    container_name: docker-react-prod
+  docker-react-mac:
+    container_name: docker-react-mac
   #Declare build file & context to use
     image: megancindric/docker-react-mac:latest
   #Mount project directory & node modules directory
