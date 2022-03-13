@@ -9,5 +9,10 @@ services:
     image: megancindric/docker-react-mac:latest
   #Mount project directory & node modules directory
     #Map the ports
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    #Map the ports
     ports:
-      - "3000:3000"
+      - "80:80"
+      - "80:8000"
