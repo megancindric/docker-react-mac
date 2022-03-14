@@ -7,7 +7,9 @@ services:
     container_name: docker-react-mac
   #Declare build file & context to use
     image: megancindric/docker-react-mac:latest
+
   #Mount project directory & node modules directory
     #Map the ports
     ports:
-      - "80:8080"
+      - "80:80"
+      - "8088:80"
