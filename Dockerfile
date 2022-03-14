@@ -8,11 +8,11 @@ WORKDIR /app
 #ENV PATH /app/node_modules.bin:$PATH
 
 #Install starting dependencies
-COPY package.json/ ./
+COPY package*.json/ ./
 RUN npm install
-RUN npm install react-scripts@4.0.3
+RUN npm install react-scripts@5.0.0 -g
 #Copy in necessary files
-COPY . ./
+COPY ./ ./
 
 #Build prod code
 RUN npm run build
