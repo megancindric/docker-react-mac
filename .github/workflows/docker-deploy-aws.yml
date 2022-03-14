@@ -36,7 +36,7 @@ jobs:
           application_name: dockerreactappmac
           environment_name: dockerreactappmac-env
           version_label: ${{ github.sha }}
-          region: ${{ env.AWS_REGION }}
+          region: us-east-1
           deployment_package: deployment.zip
           use_existing_version_if_available: true
           existing_bucket_name: elasticbeanstalk-us-east-1-783869354310
