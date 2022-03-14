@@ -1,5 +1,5 @@
 #Specify base image
-FROM node:latest as build
+FROM node:latest
 
 #Set up working directory
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY . ./
 #Build prod code
 RUN npm run build
 # *** PRODUCTION ENVIRONMENT ***
-FROM nginx:stable-alpine as prod
+FROM nginx:stable-alpine
 COPY --from=build /app/build /usr/share/nginx/html
 
 #Allows for React router to use with nginx
