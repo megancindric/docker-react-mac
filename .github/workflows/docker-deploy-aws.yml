@@ -24,7 +24,7 @@ jobs:
 
       - name: Version label
         run: |
-          echo "date-stamp=${{ env.DATE_STAMP }}" >> $GITHUB_ENV
+          echo "aws_version_label=${{ env.APP_NAME }}-${{ env.PIPELINE_ID }}" >> $GITHUB_ENV
 
       - name: Create deployment zip file
         run: zip -r deployment.zip . -x '*.git*'
@@ -33,8 +33,11 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: ${{ env.APP_NAME }}
+          application_name: dockerreactappmac
           environment_name: dockerreactappmac-env
-          version_label: ${{ env.date-stamp }}
+          version_label: ${{ github.sha }}
           region: ${{ env.AWS_REGION }}
           deployment_package: deployment.zip
+          use_existing_version_if_available: true
+          existing_bucket_name: elasticbeanstalk-us-east-1-783869354310
+
