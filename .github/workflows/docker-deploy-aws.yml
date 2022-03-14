@@ -19,29 +19,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v2
+          - name: Checkout source code
+            uses: actions/checkout@v2
 
-      - name: AWS credentials configuration and version label
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          - name: Version label
+            run: echo "date-stamp=${{ env.DATE_STAMP }}" >> $GITHUB_ENV
 
-      - name: Version label
-        run: echo "date-stamp=${{ env.DATE_STAMP }}" >> $GITHUB_ENV
-
-      - name: Create deployment zip file
-        run: zip -r deploymentpackage.zip . -x '*.git*'
-
-      - name: Deploy to Elastic Beanstalk
-        uses: einaregilsson/beanstalk-deploy@v20
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: ${{ env.APP_NAME }}
-          environment_name: dockerreactappmac-env
-          version_label: ${{ env.date-stamp }}
-          region: ${{ env.AWS_REGION }}
-          deployment_package: deploymentpackage.zip
+          - name: Create deployment zip file
+                run: zip -r deployment.zip . -x '*.git*'
+          - name: Deploy to Elastic Beanstalk
+            uses: einaregilsson/beanstalk-deploy@v20
+            with:
+              aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+              aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+              application_name: ${{ env.APP_NAME }}
+              environment_name: dockerreactappmac-env
+              version_label: ${{ env.date-stamp }}
+              region: ${{ env.AWS_REGION }}
+              deployment_package: deployment.zip

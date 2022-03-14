@@ -1,5 +1,5 @@
 #Specify base image
-FROM node:lts-alpine as build
+FROM node:latest as build
 
 #Set up working directory
 WORKDIR /app
@@ -23,5 +23,5 @@ COPY --from=build /app/build /usr/share/nginx/html
 #Allows for React router to use with nginx
 #COPY ngin/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
-EXPOSE 8000
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
